@@ -2,9 +2,9 @@
    1. VARIABLES & RESET
    ========================================================================== */
 :root {
-    --primary: #2563eb;       
-    --primary-hover: #1d4ed8;
-    --secondary: #1e293b;     
+    --primary: #1e3a8a;       /* Ton bleu de CV */
+    --primary-hover: #172554;
+    --secondary: #000000;     /* Noir */
     --text: #334155;          
     --bg: #ffffff;
     --bg-light: #f8fafc;
@@ -25,16 +25,15 @@ html {
 }
 
 body {
-    color: var(--text);
-    line-height: 1.6;
-    background: linear-gradient(180deg, #ffffff 0%, #babcc0 100%);
+    background-color: #ffffff;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 0, 0, 0.05) 0px, transparent 50%);
     background-attachment: fixed;
-    min-height: 100vh;
 }
 
 /* Utilitaires */
 a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
 .highlight { color: var(--primary); font-weight: bold; }
 
 /* ==========================================================================
@@ -79,29 +78,29 @@ ul { list-style: none; }
    ========================================================================== */
    
 .hero {
-    min-height: 100vh; /* Utilise 100vh pour centrer verticalement sur tout l'écran */
+    min-height: 100vh; 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    padding: 80px 1rem 2rem; /* padding top pour la navbar */
+    padding: 80px 1rem 2rem; 
     margin-top: 10px;
 }
 
 .hero-container {
     display: flex;
     flex-direction: column; 
-    align-items: center; /* Centre les deux étages horizontalement */
+    align-items: center; 
     gap: 2.5rem;
     max-width: 1000px;
     width: 100%;
-    margin: 0 auto; /* Sécurité pour le centrage */
+    margin: 0 auto; 
 }
 
 /* Étage 1 : Photo + Titre */
 .hero-top {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centre le bloc photo+titre */
+    justify-content: center; 
     gap: 2rem;
     width: 100%;
 }
@@ -132,18 +131,18 @@ ul { list-style: none; }
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centre tout le bloc de texte et les boutons */
-    text-align: center;  /* Optionnel : met le texte au centre aussi */
+    align-items: center; 
+    text-align: center;  
 }
 
 .hero-description {
-    max-width: 800px; /* Limite la largeur pour que ce soit lisible */
+    max-width: 800px; 
     text-align: left;
 }
 
 .hero-right-btns {
     display: flex;
-    justify-content: center; /* Centre les boutons sous le texte */
+    justify-content: center; 
     gap: 1.5rem;
     margin-top: 2rem;
 }
@@ -157,7 +156,7 @@ ul { list-style: none; }
 }
 
 .hero-btns {
-    background-color: #13498f;
+    background-color: var(--primary);
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
@@ -168,7 +167,7 @@ ul { list-style: none; }
 .hero-btns:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* ==========================================================================
@@ -183,7 +182,7 @@ ul { list-style: none; }
 .skill-card {
     text-align: center; 
     padding: 2.5rem 1.5rem;
-    border: 1px solid #13498f; 
+    border: 1px solid var(--primary); 
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.5);
     transition: var(--transition);
@@ -197,13 +196,13 @@ ul { list-style: none; }
     margin-top: 1.5rem;
 }
 
-.tech-icons a {
+.tech-icons span {
     font-size: 2.5rem;
     display: inline-flex;
     transition: var(--transition);
 }
 
-.tech-icons a:hover {
+.tech-icons span:hover {
     transform: translateY(-5px) scale(1.1);
 }
 
@@ -216,7 +215,7 @@ ul { list-style: none; }
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    text-align: left; /* On remet à gauche pour éviter les trous au milieu */
+    text-align: left; 
 }
 
 .filter-container {
@@ -239,8 +238,9 @@ ul { list-style: none; }
 }
 
 .filter-btn.active, .filter-btn:hover {
-    background: var(--primary);
+    background: var(--secondary);
     color: white;
+    border-color: var(--secondary);
 }
 
 .projects-grid {
@@ -256,7 +256,7 @@ ul { list-style: none; }
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    border: 1px solid #1e3a8a;
+    border: 1px solid var(--primary);
     transition: var(--transition);
     opacity: 1;
     width: 100%;
@@ -266,9 +266,14 @@ ul { list-style: none; }
 
 .project-card.hidden { display: none !important; }
 
-.project-card:hover { 
-    transform: translateY(-5px);     
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+.project-card:hover {
+    border: 1px solid #1e3a8a; 
+    box-shadow: 
+        0 5px 25px rgba(0, 0, 0, 0.1), 
+        0 0 10px rgba(30, 58, 138, 0.6), 
+        0 0 20px rgba(30, 58, 138, 0.3);
+    transform: translateY(-5px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
 }
 
@@ -299,10 +304,12 @@ ul { list-style: none; }
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 1rem;
+    margin-top: 1rem;
+
 }
 
 .project-tech span {
-    background: #1e3a8a; 
+    background: var(--primary); 
     color: white; 
     padding: 0.2rem 0.6rem;
     border-radius: 5px; 
@@ -317,8 +324,15 @@ ul { list-style: none; }
     grid-template-columns: 300px 1fr; 
     grid-template-rows: auto auto;
     cursor: default;
-    order: -1; /* Remonte en haut de la grille */
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    order: -1; 
+    box-shadow: 
+        0 5px 25px rgba(0, 0, 0, 0.1), 
+        0 0 10px rgba(30, 58, 138, 0.6), 
+        0 0 20px rgba(30, 58, 138, 0.3);
+}
+
+.project-card.active:hover{
+    transform: translateY(0px);
 }
 
 .project-card.active .project-sidebar-img {
@@ -354,6 +368,17 @@ ul { list-style: none; }
     transition: var(--transition);
 }
 
+.project-details ul, ol{
+    list-style-position: inside;
+    padding-left: 0;
+    margin-left: 0;
+    text-align: left;
+}
+
+.project-details li {
+    margin-bottom: 8px;
+}
+
 /* ==========================================================================
    7. FOOTER
    ========================================================================== */
@@ -365,8 +390,8 @@ footer {
     margin-top: 100px;
 }
 
-.socials { margin: 1.5rem 0; font-size: 1.8rem; }
-.socials a { margin: 0 15px; transition: var(--transition); }
+.socials { margin: 20px; font-size: 1.8rem; }
+.socials a { margin: 20px; transition: var(--transition); }
 .socials a:hover { color: var(--primary); }
 
 /* ==========================================================================
@@ -379,11 +404,60 @@ footer {
     .hero-right-btns { justify-content: center; }
     .projects-grid { grid-template-columns: 1fr; }
     .project-card.active { grid-template-columns: 1fr; }
-    .project-card.active .project-sidebar-img { width: calc(100% - 40px); grid-column: 1; }
-    .project-card.active .project-info { grid-column: 1; grid-row: 2; }
-    .project-card.active .project-details { grid-column: 1; grid-row: 3; }
 }
 
 @media (max-width: 600px) {
     .nav-links { display: none; }
 }
+
+
+/* --- INFO-BULLES (TOOLTIPS) --- */
+.tech-icons span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-icons span::after {
+    content: attr(data-tooltip); 
+    position: absolute;
+    bottom: -60%; 
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); 
+    
+    color: var(--secondary);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none; 
+    z-index: 1000;
+}
+
+.tech-icons span:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px;
+}
+
+.contact-info a {
+    margin: 20px;
+}
+
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
