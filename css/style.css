@@ -461,3 +461,15 @@ footer {
     color: white;
 }
 
+iconify-icon {
+    display: inline-block;
+    width: 1.5rem;  /* Ajuste la taille selon tes besoins (ex: 24px) */
+    height: 1.5rem;
+    vertical-align: middle;
+}
+
+.tech-icons iconify-icon {
+    width: 2.5rem; 
+    height: 2.5rem;
+    margin: 5px;
+}
