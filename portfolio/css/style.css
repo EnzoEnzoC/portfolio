@@ -1,0 +1,389 @@
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
+:root {
+    --primary: #2563eb;       
+    --primary-hover: #1d4ed8;
+    --secondary: #1e293b;     
+    --text: #334155;          
+    --bg: #ffffff;
+    --bg-light: #f8fafc;
+    --white: #ffffff;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    color: var(--text);
+    line-height: 1.6;
+    background: linear-gradient(180deg, #ffffff 0%, #babcc0 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Utilitaires */
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.highlight { color: var(--primary); font-weight: bold; }
+
+/* ==========================================================================
+   2. MISE EN PAGE & SECTIONS
+   ========================================================================== */
+.section { 
+    max-width: 1200px; 
+    margin: 40px auto; 
+    padding: 0 20px;
+}
+
+.section-title { 
+    text-align: center; 
+    font-size: 2rem; 
+    margin-bottom: 3rem; 
+    color: var(--secondary); 
+}
+
+/* ==========================================================================
+   3. NAVIGATION
+   ========================================================================== */
+.navbar {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 1rem 5%; 
+    position: fixed; 
+    width: 100%; 
+    top: 0;
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(10px);
+    z-index: 1000; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo { font-size: 1.5rem; font-weight: 800; color: var(--secondary); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a:hover { color: var(--primary); transition: var(--transition); }
+
+/* ==========================================================================
+   4. HERO (STRUCTURE À DEUX ÉTAGES)
+   ========================================================================== */
+   
+.hero {
+    min-height: 100vh; /* Utilise 100vh pour centrer verticalement sur tout l'écran */
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 80px 1rem 2rem; /* padding top pour la navbar */
+    margin-top: 10px;
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; /* Centre les deux étages horizontalement */
+    gap: 2.5rem;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto; /* Sécurité pour le centrage */
+}
+
+/* Étage 1 : Photo + Titre */
+.hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centre le bloc photo+titre */
+    gap: 2rem;
+    width: 100%;
+}
+
+.cv-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.cv-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-top h1 {
+    font-size: 3.5rem;
+    color: var(--secondary);
+    line-height: 1.1;
+}
+
+/* Étage 2 : Description + Boutons */
+.hero-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre tout le bloc de texte et les boutons */
+    text-align: center;  /* Optionnel : met le texte au centre aussi */
+}
+
+.hero-description {
+    max-width: 800px; /* Limite la largeur pour que ce soit lisible */
+    text-align: left;
+}
+
+.hero-right-btns {
+    display: flex;
+    justify-content: center; /* Centre les boutons sous le texte */
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.objective {
+    font-weight: bold;
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+    padding-left: 15px;
+    margin-top: 1.5rem;
+}
+
+.hero-btns {
+    background-color: #13498f;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.hero-btns:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* ==========================================================================
+   5. COMPÉTENCES (SKILLS)
+   ========================================================================== */
+.skills-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 2rem;
+}
+
+.skill-card {
+    text-align: center; 
+    padding: 2.5rem 1.5rem;
+    border: 1px solid #13498f; 
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    transition: var(--transition);
+}
+
+.tech-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.tech-icons a {
+    font-size: 2.5rem;
+    display: inline-flex;
+    transition: var(--transition);
+}
+
+.tech-icons a:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* ==========================================================================
+   6. RÉALISATIONS (PROJECTS)
+   ========================================================================== */
+
+#projects {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left; /* On remet à gauche pour éviter les trous au milieu */
+}
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.projects-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+    gap: 2rem;
+}
+
+/* État de base de la carte */
+.project-card {
+    background: white;
+    border-radius: 10px; 
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #1e3a8a;
+    transition: var(--transition);
+    opacity: 1;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-card.hidden { display: none !important; }
+
+.project-card:hover { 
+    transform: translateY(-5px);     
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+    cursor: pointer;
+}
+
+.project-sidebar-img {
+    flex: 0 0 60px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.project-sidebar-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-info { 
+    padding: 1.5rem; 
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-info h4 { margin-bottom: 1rem; color: var(--secondary); }
+
+/* Badges Tech & Skills */
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.project-tech span {
+    background: #1e3a8a; 
+    color: white; 
+    padding: 0.2rem 0.6rem;
+    border-radius: 5px; 
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* --- ÉTAT ACTIF (DÉPLOIEMENT) --- */
+.project-card.active {
+    grid-column: 1 / -1; 
+    display: grid; 
+    grid-template-columns: 300px 1fr; 
+    grid-template-rows: auto auto;
+    cursor: default;
+    order: -1; /* Remonte en haut de la grille */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.project-card.active .project-sidebar-img {
+    grid-column: 1;
+    grid-row: 1;
+    width: calc(100% - 40px);
+    height: 200px;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+.project-card.active .project-info {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 2rem;
+    justify-content: center;
+}
+
+.project-card.active .project-details {
+    display: block;
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    padding: 0 2rem 2rem 2rem;
+    opacity: 1;
+    max-height: 2000px;
+}
+
+.project-details {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+footer {
+    text-align: center; 
+    padding: 4rem 2rem; 
+    background: var(--secondary); 
+    color: var(--white);
+    margin-top: 100px;
+}
+
+.socials { margin: 1.5rem 0; font-size: 1.8rem; }
+.socials a { margin: 0 15px; transition: var(--transition); }
+.socials a:hover { color: var(--primary); }
+
+/* ==========================================================================
+   8. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .hero-top { flex-direction: column; text-align: center; }
+    .hero-top h1 { font-size: 2.5rem; }
+    .hero-bottom { text-align: center; }
+    .hero-right-btns { justify-content: center; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.active { grid-template-columns: 1fr; }
+    .project-card.active .project-sidebar-img { width: calc(100% - 40px); grid-column: 1; }
+    .project-card.active .project-info { grid-column: 1; grid-row: 2; }
+    .project-card.active .project-details { grid-column: 1; grid-row: 3; }
+}
+
+@media (max-width: 600px) {
+    .nav-links { display: none; }
+}

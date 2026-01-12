@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Prénom Nom - Développeur Fullstack</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.project-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let activeFilters = []; // On utilise un tableau simple
+
+    // --- LOGIQUE D'OUVERTURE DES CARTES ---
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (card.classList.contains('active')) return;
+            cards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: "start" });
+            }, 400);
+        });
+    });
+
+    window.addEventListener('click', () => {
+        cards.forEach(card => card.classList.remove('active'));
+    });
+
+    // --- LOGIQUE DE FILTRAGE MULTIPLE ---
+    filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const filter = button.getAttribute('data-filter');
+
+            if (filter === 'all') {
+                activeFilters = [];
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            } else {
+                // Retirer le bouton "Tous"
+                document.querySelector('[data-filter="all"]').classList.remove('active');
+                
+                // Ajouter ou retirer le filtre du tableau
+                if (activeFilters.includes(filter)) {
+                    activeFilters = activeFilters.filter(f => f !== filter);
+                    button.classList.remove('active');
+                } else {
+                    activeFilters.push(filter);
+                    button.classList.add('active');
+                }
+            }
+
+            // Si rien n'est coché, on revient à "Tous"
+            if (activeFilters.length === 0) {
+                document.querySelector('[data-filter="all"]').classList.add('active');
+            }
+
+            // Application du filtre sur les cartes
+            cards.forEach(card => {
+                const cardCategories = card.getAttribute('data-category') || "";
+                // On transforme la chaîne "realiser optimiser" en tableau pour comparer
+                const cardCatArray = cardCategories.split(' ');
+
+                // On affiche si : aucun filtre actif OU si la carte a au moins un des filtres actifs
+                const shouldShow = activeFilters.length === 0 || 
+                                 activeFilters.some(f => cardCatArray.includes(f));
+
+                card.classList.remove('active'); // Ferme la carte si elle change d'état
+
+                if (shouldShow) {
+                    card.classList.remove('hidden');
+                    card.style.display = ""; // Rend le display d'origine (flex ou grid)
+                    setTimeout(() => { card.style.opacity = "1"; }, 10);
+                } else {
+                    card.style.opacity = "0";
+                    setTimeout(() => { card.classList.add('hidden'); }, 300);
+                }
+            });
+        });
+    });
+});
+</script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">PN.</div>
+        <ul class="nav-links">
+            <li><a href="#skills">Mes compétences</a></li>
+            <li><a href="#projects" class="active">Mes réalisations</a></li>
+            <li><a href="#" class="btn-primary">Me contacter</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-container">
+            
+            <div class="hero-top">
+                <div class="cv-preview">
+                    <img src="/home/etudiant/Bureau/portfolio/img/moi.png" alt="Photo d'Enzo">
+                </div>
+                <h1>Bonjour, je suis <span class="highlight">Enzo</span></h1>
+            </div>
+
+            <div class="hero-bottom">
+                <div class="hero-description">
+                    <p>
+                        En fin de cursus à l'IUT de Lannion en 3ème année de B.U.T. Informatique, j'ai travaillé sur des projets variés allant du développement d'applications industrielles en stage à la conception de plateformes web en équipe.
+                        Mon parcours m'a permis d'acquérir une base technique dans plusieurs domaines, tout en m'initiant aux problématiques de l'IA. 
+                    </p>
+                    <p><br><strong>
+                        Je vous invite à découvrir tout cela à travers mon portfolio.
+                    </p><br></strong>
+
+                    <p>
+                        Actuellement à la recherche d'un stage de 14 semaines dans le développement logiciel ou web; j'aspire à poursuivre mes études en Master IA ou en école d'ingénieur.
+                    </p>
+                </div>
+                
+                <div class="hero-right-btns">
+                    <a href="/home/etudiant/Bureau/portfolio/img/CV_EnzoCaz.pdf" class="hero-btns">Télécharger mon CV</a>
+                    <a href="#skills" class="hero-btns">Voir mes compétences</a>
+                    <a href="#projects" class="hero-btns">Voir mes réalisations</a>
+                    <a href="#footer" class="hero-btns">Contactez-moi</a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <section id="skills" class="section">
+        <h2 class="section-title">Mes Compétences</h2>
+        
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Langages & Frontend</h3>
+                <div class="tech-icons">
+                    <a href="#" data-tooltip="HTML"><iconify-icon icon="vscode-icons:file-type-html"></iconify-icon></a>
+                    <a href="#" data-tooltip="CSS"><iconify-icon icon="vscode-icons:file-type-css"></iconify-icon></a>
+                    <a href="#" data-tooltip="JS"><iconify-icon icon="logos:javascript"></iconify-icon></a>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>Backend & Data</h3>
+                <div class="tech-icons">
+                    <a href="#" data-tooltip="Python"><iconify-icon icon="logos:python"></iconify-icon></a>
+                    <a href="#" data-tooltip="Java"><iconify-icon icon="logos:java"></iconify-icon></a>
+                    <a href="#" data-tooltip="SQL"><iconify-icon icon="logos:postgresql"></iconify-icon></a>
+                    <a href="#" data-tooltip="C#"><iconify-icon icon="logos:c-sharp"></iconify-icon></a>
+                    <a href="#" data-tooltip="C"><iconify-icon icon="logos:c"></iconify-icon></a>
+                    <a href="#" data-tooltip="PHP"><iconify-icon icon="logos:php"></iconify-icon></a>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>Outils & Infrastructure</h3>
+                <div class="tech-icons">
+                    <a href="#" data-tooltip="Docker"><iconify-icon icon="logos:docker-icon"></iconify-icon></a>
+                    <a href="#" data-tooltip="Agile"><iconify-icon icon="fluent:people-team-24-filled" style="color: #6ea10f;"></iconify-icon></a>
+                    <a href="#" data-tooltip="GitHub"><iconify-icon icon="logos:github-icon"></iconify-icon></a>
+                    <a href="#" data-tooltip="AI"><iconify-icon icon="carbon:machine-learning-model"></iconify-icon></a>
+                    <a href="#" data-tooltip="AI"><iconify-icon icon="logos:visual-studio"></iconify-icon></a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Mes Réalisations</h2>
+
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="realiser">Réaliser</button>
+            <button class="filter-btn" data-filter="optimiser">Optimiser</button>
+            <button class="filter-btn" data-filter="administrer">Administrer</button>
+            <button class="filter-btn" data-filter="gerer">Gérer</button>
+            <button class="filter-btn" data-filter="conduire">Conduire</button>
+            <button class="filter-btn" data-filter="collaborer">Collaborer</button>
+        </div>
+
+        <div class="projects-grid">
+            
+            <!-- PACT -->
+            <article class="project-card" data-category=" realiser gerer conduire collaborer">
+                <div class="project-sidebar-img">
+                    <img src="/home/etudiant/Bureau/portfolio/img/logo-ca" alt="">
+                </div>
+
+                <div class="project-info">
+                    <h4>Création d'un site touristique pour les côtes-d'armor</h4>
+                    <p class="project-tech">
+                        <span>HTML</span><span>CSS</span><span>PHP</span><span>JavaScript</span><span>PostGreSQL</span><span>GitHub</span><span>Scrum</span>
+                    </p>
+                    <p>Les compétences liées</p>
+                    <p class="project-tech">
+                        <span>Collaborer (Travailler dans une équipe)</span>
+                        <span>Conduire (Identifier les besoins)</span>
+                        <span>Gérer (Concevoir une base de données)</span>
+                        <span>Réaliser (Développer des applications informatiques)</span>
+                    </p>
+                </div>
+                    <div class="project-details">
+                        <h4>Réalisé en 2ème année de B.U.T. Informatique</h4>
+                        <p>
+                            Dans le cadre de ce projet, nous avons conçu et développé PACT, un portail web dynamique dédié à la promotion touristique des Côtes-d’Armor. <br>
+                            L’objectif était de créer un écosystème complet permettant de mettre en relation professionnels du tourisme et visiteurs. <br>
+                            Voici les réalisations principales: <br><br>
+
+                            - Interface Utilisateur: Conception d’une navigation intuitive avec affichage dynamique des offres culturelles sous forme de cartes interactives. <br>
+                            - Gestion Multi-profils: Développement d’une logique interne complexe gérant différents types de comptes (Visiteurs, Professionnels, Administrateurs) avec des droits d'accès et des tableaux de bord spécifiques. <br>
+                            - Back-end: Implémentation de la création, modification et gestion des annonces et des réservations. <br><br>
+
+                            De plus, ce projet a été piloté selon la méthodologie AGILE (Scrum). Organisés en sprints de 15 jours, nous avons, en équipes de 6 à 8 personnes, assuré une livraison continue de fonctionnalités, garantissant ainsi le respect du cahier des charges et une grande réactivité face aux besoins du client.
+
+                        </p>
+                    </div>
+            </article>
+
+            <!-- Sudoku -->
+            <article class="project-card" data-category="collaborer realiser optimiser">
+                <div class="project-sidebar-img">
+                    <img src="https://sudoku-puzzles.net/wp-content/puzzles/asterisk-sudoku/easy/1.png" alt="Image Sudoku">
+                </div>
+
+                <div class="project-info">
+                    <h4>Création d'un sudoku en ligne de commande</h4>
+                    <p class="project-tech">
+                        <span>C</span>
+                    </p>
+                    <p>Les compétences liées</p>
+                    <p class="project-tech">
+                        <span>Collaborer (Travailler dans une équipe)</span>
+                        <span>Réaliser (Développer des applications informatiques)</span>
+                        <span>Optimiser (Appréhender et construire des algorithmes)</span>
+                    </p>
+                </div>
+                    <div class="project-details">
+                        <h4>Réalisé en 1ère année de B.U.T. Informatique</h4>
+                        <p>Le but de ce projet était de coder entièrement une grille de Sudoku fonctionnelle en ligne de commande, en binome, à l'aide du langage de programmation C. L'utilisateur pouvait saisir un chiffre puis une case sur la grille via une combinaison lettre/chiffre, et le programme vérifiait que tout était en règle. L'utilisateur pouvait alors jouer toute une partie de Sudoku. 
+                            Pour y parvenir, nous avons suivis de nombreuses étapes: <br><br>
+                            1. Maquettage <br>
+                            2. Création de l'algorithme principal en pseudo-code <br>
+                            3. Réalisation d'un cahier de tests <br>
+                            4. Réalisation de la documentation <br>
+                            5. Réalisation de l'algorithme principal <br>
+                            6. Réalisation des tests <br>
+                        </p>
+                    </div>
+            </article>
+
+            <!-- Docker -->
+            <article class="project-card" data-category="administrer">
+                <div class="project-sidebar-img">
+                    <img src="https://uploads.teachablecdn.com/attachments/XJOlXZHcQvKHdkmu1yrs_docker-wide.png" alt="Image Sudoku">
+                </div>
+
+                <div class="project-info">
+                    <h4>Installation d'un poste de travail: Docker</h4>
+                    <p class="project-tech">
+                        <span>Docker</span>
+                    </p>
+                    <p>Les compétences liées</p>
+                    <p class="project-tech">
+                        <span>Administrer (Installer et configurer un poste de travail)</span>
+                    </p>
+                </div>
+                    <div class="project-details">
+                        <h4>Réalisé en 1ère année de B.U.T. Informatique</h4>
+                        <p>
+                            Dans le cadre d’un projet d'initiation aux systèmes Linux, j'ai réalisé le déploiement et la configuration complète d'une solution de conteneurisation Docker.
+                           Ce projet m'a permis de comprendre l'utilisation d'une technologie de conteneurisation tel que Docker.
+                        </p>
+                    </div>
+            </article>
+
+            <!-- Morpion python -->
+            <article class="project-card" data-category="realiser">
+                <div class="project-sidebar-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRod61FtUhsVzS59ja-MmURXCKsL5dd6vIj2Q&s" alt="Image Sudoku">
+                </div>
+
+                <div class="project-info" data-category="realiser">
+                    <h4>Création d'un morpion en python</h4>
+                    <p class="project-tech">
+                        <span>Python</span>
+                    </p>
+                    <p>Les compétences liées</p>
+                    <p class="project-tech">
+                        <span>Réaliser (Développer des applications informatiques)</span>
+                    </p>
+                </div>
+                    <div class="project-details">
+                        <h4>Projet personnel</h4>
+                        <p>
+                            Réalisé en autodidacte, ce projet visait à approfondir ma maîtrise du langage Python à travers la création d'une application de bureau interactive. <br>
+                            J'ai notamment réalisé: <br><br>
+
+                            - Une interface graphique avec l'utilisation de la bibliothèque Tkinter pour concevoir une fenêtre de jeu dynamique et gérer les événements utilisateurs (clics, mises à jour visuelles). <br>
+                            - La logique Algorithmique, avec l'implémentation du moteur de jeu (gestion des tours, vérification des conditions de victoire et gestion des matchs nuls). <br>
+                            - Et la programmation événementielle avec l'apprentissage des concepts de boucles d'événements et de rafraîchissement d'interface en temps réel. <br><br>
+
+                            Au final, ce projet m'a permis de comprendre la séparation entre la logique métier (les règles du jeu) et la couche présentation (l'interface), une base fondamentale pour le développement d'applications plus complexes.                        </p>
+                    </div>
+            </article>
+
+            <!-- stage -->
+            <article class="project-card" data-category="realiser collaborer conduire">
+                <div class="project-sidebar-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_x1D-v7aqFBr7u100rMjZw9qJ0PDAMHZUuw&s" alt="Image Sudoku">
+                </div>
+
+                <div class="project-info" data-category="realiser">
+                    <h4>Création d'une IHM pour une entreprise</h4>
+                    <p class="project-tech">
+                        <span>C#</span>
+                        <span>VisualStudio</span>
+                    </p>
+                    <p>Les compétences liées</p>
+                    <p class="project-tech">
+                        <span>Réaliser (Développer des applications informatiques)</span>
+                        <span>Collaborer (Travailler dans une équipe)</span>
+                        <span>Conduire (Identifier les besoins)</span>
+                    </p>
+                </div>
+                    <div class="project-details">
+                        <h4>Réalisé dans le cadre du stage de 2ème année de B.U.T. Informatique</h4>
+                        <p>
+                        Au cours de mon stage, j'ai été chargé de concevoir et de développer une Interface Homme-Machine (IHM) permettant le pilotage à distance d'équipements conçus par l'entreprise. <br>
+                        Cela a donc été pour moi l'occasion de réaliser beaucoup de choses, notamment: <br><br>
+
+                        - L'analyse du besoin: Étude approfondie du cahier des charges pour traduire les exigences techniques des ingénieurs en fonctionnalités pour l'IHM. <br>
+                        - Le développement logiciel: Création complète de l'application à l'aide de Visual Studio en C#, et donc élaboration d'une interface ergonomique permettant la visualisation des données en temps réel et l'envoi de commandes aux appareils. <br><br>
+
+                        J'y ai également développer mes soft-skills, en effet, j'ai pu collaborer avec des ingénieurs, qui n'étaient pas du domaine de l'informatique, pour comprendre les besoins et le fonctionnement du projet. </p>
+                    </div>
+            </article>
+
+            <!-- 3ème année -->
+            <article class="project-card" data-category="realiser collaborer conduire gérer optimiser">
+                <div class="project-sidebar-img">
+                    <img src="https://img.freepik.com/vecteurs-libre/cadre-notes-musique-espace-texte_1017-32857.jpg?semt=ais_hybrid&w=740&q=80" alt="Image Sudoku">
+                </div>
+
+                <div class="project-info" data-category="realiser">
+                    <h4>Création d'une IHM pour une entreprise</h4>
+                    <p class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>PHP</span>
+                        <span>JavaScript</span>
+                        <span>PostGreSQL</span>
+                        <span>GitHub</span>
+                        <span>TechniquesIA</span>
+                        <span>Python</span>
+
+                    <p>Les compétences liées</p>
+                    <p class="project-tech">
+                        <span>Réaliser (Développer des applications informatiques)</span>
+                        <span>Collaborer (Travailler dans une équipe)</span>
+                        <span>Conduire (Identifier les besoins)</span>
+                        <span>Gérer (Concevoir une base de données)</span>
+                        <span>Optimiser (Appréhender et construire des algorithmes)</span>
+                    </p>
+                </div>
+                    <div class="project-details">
+                        <h4>En cours (3ème année de B.U.T. Informatique)</h4>
+                        <p>
+                        Au sein d'une équipe de 8 personnes, nous concevons une plateforme de recommandations musicales intégrant des algorithmes d'intelligence artificielle pour personnaliser l'expérience utilisateur.
+                        Nos réalisations: <br><br>
+
+                            - Système de Recommandation: Implémentation de modèles d'IA pour suggérer des titres adaptés aux goûts de l'utilisateur.<br>
+                            - Architecture: Développement d'une interface web pour gérer les interactions utilisateurs.<br>
+                            - Traitement de données: Analyse et structuration des métadonnées musicales pour alimenter le moteur de recommandation.</p>
+                    </div>
+            </article>
+        
+
+            </div>
+    </section>
+
+    <footer id="contact">
+        <h2>Travaillons ensemble</h2>
+        <p>À la recherche d'un stage / alternance / emploi dès [Mois Année].</p>
+        <a href="mailto:email@exemple.com" class="btn-primary">Envoyer un mail</a>
+        <div class="socials">
+            <a href="LINKEDIN_URL"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="GITHUB_URL"><i class="fa-brands fa-github"></i></a>
+        </div>
+        <p class="copyright">&copy; 2026 Enzo Caz</p>
+    </footer>
+
+</body>
+</html>
