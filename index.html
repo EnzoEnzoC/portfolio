@@ -2,17 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Enzo Caz - Développeur Fullstack</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Enzo Caz</title>
+    <link rel="stylesheet"
+          href="style.css">
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const cards = document.querySelectorAll('.project-card');
         const filterButtons = document.querySelectorAll('.filter-btn');
         let activeFilters = [];
-
         cards.forEach(card => {
             card.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -24,16 +24,13 @@
                 }, 400);
             });
         });
-
         window.addEventListener('click', () => {
             cards.forEach(card => card.classList.remove('active'));
         });
-
         filterButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const filter = button.getAttribute('data-filter');
-
                 if (filter === 'all') {
                     activeFilters = [];
                     filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -48,19 +45,15 @@
                         button.classList.add('active');
                     }
                 }
-
                 if (activeFilters.length === 0) {
                     document.querySelector('[data-filter="all"]').classList.add('active');
                 }
-
                 cards.forEach(card => {
                     const cardCategories = card.getAttribute('data-category') || "";
                     const cardCatArray = cardCategories.trim().split(/\s+/);
                     const shouldShow = activeFilters.length === 0 || 
                                      activeFilters.some(f => cardCatArray.includes(f));
-
                     card.classList.remove('active'); 
-
                     if (shouldShow) {
                         card.classList.remove('hidden');
                         card.style.display = ""; 
@@ -72,57 +65,104 @@
                 });
             });
         });
+        const themeBtn = document.getElementById('theme-toggle');
+        const icon = themeBtn.querySelector('iconify-icon');
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            icon.setAttribute('icon', 'lucide:sun');
+        }
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('dark-mode', 'enabled');
+                icon.setAttribute('icon', 'lucide:sun');
+            } else {
+                localStorage.setItem('dark-mode', 'disabled');
+                icon.setAttribute('icon', 'lucide:moon');
+            }
+        });
     });
     </script>
 </head>
 <body>
-
     <nav class="navbar">
         <div class="logo">Portfolio | Enzo Caz</div>
         <ul class="nav-links">
+            <li><a href="#education">Ma formation</a></li>
             <li><a href="#skills">Mes compétences</a></li>
-            <li><a href="#projects" class="active">Mes réalisations</a></li>
-            <li><a href="#contact" class="btn-primary">Me contacter</a></li>
+            <li><a href="#projects"
+                   class="active">Mes réalisations</a></li>
+            <li><a href="#contact"
+                   class="btn-primary">Me contacter</a></li>
+            <li><a href="img/CV_EnzoCaz.pdf"
+                   class="hero-btns"
+                   id="btn-nav"
+                   download="CV_Enzo_Caz.pdf">Télécharger mon CV</a></li>
+            <li><button id="theme-toggle"
+                        class="theme-btn"
+                        aria-label="Changer le thème">
+                    <iconify-icon icon="lucide:moon"></iconify-icon>
+                </button></li>
         </ul>
     </nav>
-
     <header class="hero">
         <div class="hero-container">
             <div class="hero-top">
                 <div class="cv-preview">
-                    <img src="img/moi.png" alt="Photo d'Enzo">
+                    <img src="img/moi.png"
+                         alt="Photo d'Enzo">
                 </div>
                 <h1>Bonjour, je suis <span class="highlight">Enzo Caz</span></h1>
             </div>
-
             <div class="hero-bottom">
                 <div class="hero-description">
-                    <p>
-                        En fin de cursus à l'IUT de Lannion en 3ème année de B.U.T. Informatique, j'ai travaillé sur des projets variés allant du développement d'applications industrielles en stage à la conception de plateformes web en équipe.
-                        Mon parcours m'a permis d'acquérir une base technique dans plusieurs domaines, tout en m'initiant aux problématiques de l'IA. 
-                    </p>
-                    <p><br><strong>
-                        Je vous invite à découvrir tout cela à travers mon portfolio.
-                    </strong></p><br>
-
-                    <p>
-                        Actuellement à la recherche d'un stage de 14 semaines dans le développement logiciel ou web; j'aspire à poursuivre mes études en Master IA ou en école d'ingénieur.
-                    </p>
+                    <p>En fin de cursus à l'IUT de Lannion en 3ème année de B.U.T. Informatique, j'ai travaillé sur des projets variés allant du développement d'applications industrielles en stage à la conception de plateformes web en équipe. Mon parcours m'a permis d'acquérir une base technique dans plusieurs domaines, tout en m'initiant aux problématiques de l'IA.</p>
+                    <p><br><strong>Je vous invite à découvrir tout cela à travers mon portfolio.</strong></p><br>
+                    <p>Actuellement à la recherche d'un stage de 14 semaines dans le développement logiciel ou web; j'aspire à poursuivre mes études en Master IA ou en école d'ingénieur.</p>
                 </div>
-                
                 <div class="hero-right-btns">
-                    <a href="img/CV_EnzoCaz.pdf" class="hero-btns" download="CV_Enzo_Caz.pdf">Télécharger mon CV</a>
-                    <a href="#skills" class="hero-btns">Voir mes compétences</a>
-                    <a href="#projects" class="hero-btns">Voir mes réalisations</a>
-                    <a href="#contact" class="hero-btns">Contactez-moi</a>
+                    <span class="arrow-sep">→</span>
+                    <a href="#skills"
+                       class="hero-btns">Explorez mes compétences</a>
+                    <span class="arrow-sep">→</span>
+                    <a href="#projects"
+                       class="hero-btns">Explorez mes réalisations</a>
+                    <span class="arrow-sep">→</span>
+                    <a href="img/CV_EnzoCaz.pdf"
+                       class="hero-btns"
+                       download="CV_Enzo_Caz.pdf">Téléchargez mon CV</a>
+                    <span class="arrow-sep">→</span>
+                    <a href="#contact"
+                       class="hero-btns">Contactez-moi</a>
                 </div>
             </div>
         </div>
     </header>
-
-    <section id="skills" class="section">
+    <section id="education"
+             class="section">
+        <h2 class="section-title">Ma Formation</h2>
+        <div class="education-container">
+            <div class="education-card">
+                <div class="edu-date">2022 — En cours</div>
+                <div class="edu-content">
+                    <h3>B.U.T. Informatique</h3>
+                    <a href="https://iut-lannion.univ-rennes.fr"><h4 class="edu-location"><u>Institut universitaire de technologie, Lannion</u></h4></a>
+                    <p>Parcours réalisation d'applications <br> Parcours administration, gestion et exploitation des données</p>
+                </div>
+            </div>
+            <div class="education-card">
+                <div class="edu-date">2023</div>
+                <div class="edu-content">
+                    <h3>Baccalauréat Général</h3>
+                    <a href="https://www.lycee-pavie.fr/"><h4 class="edu-location"><u>Lycée Auguste Pavie, Guingamp</u></h4></a>
+                    <p>Spécialité Mathématiques <br> Spécialité Numérique et Sciences Informatiques</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="skills"
+             class="section">
         <h2 class="section-title">Mes Compétences</h2>
-        
         <div class="skills-grid">
             <div class="skill-card">
                 <h3>Langages & Frontend</h3>
@@ -132,7 +172,6 @@
                     <span data-tooltip="JavaScript"><iconify-icon icon="logos:javascript"></iconify-icon></span>
                 </div>
             </div>
-
             <div class="skill-card">
                 <h3>Backend & Data</h3>
                 <div class="tech-icons">
@@ -144,12 +183,12 @@
                     <span data-tooltip="PHP"><iconify-icon icon="logos:php"></iconify-icon></span>
                 </div>
             </div>
-
             <div class="skill-card">
                 <h3>Outils & Infrastructure</h3>
                 <div class="tech-icons">
                     <span data-tooltip="Docker"><iconify-icon icon="logos:docker-icon"></iconify-icon></span>
-                    <span data-tooltip="Scrum"><iconify-icon icon="fluent:people-team-24-filled" style="color: #6ea10f;"></iconify-icon></span>
+                    <span data-tooltip="Scrum"><iconify-icon icon="fluent:people-team-24-filled"
+                                  style="color: #6ea10f;"></iconify-icon></span>
                     <span data-tooltip="GitHub"><iconify-icon icon="logos:github-icon"></iconify-icon></span>
                     <span data-tooltip="Techniques IA"><iconify-icon icon="carbon:machine-learning-model"></iconify-icon></span>
                     <span data-tooltip="Visual Studio"><iconify-icon icon="logos:visual-studio"></iconify-icon></span>
@@ -157,244 +196,195 @@
             </div>
         </div>
     </section>
-
-    <section id="projects" class="section">
+    <section id="projects"
+             class="section">
         <h2 class="section-title">Mes Réalisations</h2>
-
         <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">Tous</button>
-            <button class="filter-btn" data-filter="realiser">Réaliser</button>
-            <button class="filter-btn" data-filter="optimiser">Optimiser</button>
-            <button class="filter-btn" data-filter="administrer">Administrer</button>
-            <button class="filter-btn" data-filter="gerer">Gérer</button>
-            <button class="filter-btn" data-filter="conduire">Conduire</button>
-            <button class="filter-btn" data-filter="collaborer">Collaborer</button>
+            <button class="filter-btn active"
+                    data-filter="all">Tous</button>
+            <button class="filter-btn"
+                    data-filter="realiser">Réaliser</button>
+            <button class="filter-btn"
+                    data-filter="optimiser">Optimiser</button>
+            <button class="filter-btn"
+                    data-filter="administrer">Administrer</button>
+            <button class="filter-btn"
+                    data-filter="gerer">Gérer</button>
+            <button class="filter-btn"
+                    data-filter="conduire">Conduire</button>
+            <button class="filter-btn"
+                    data-filter="collaborer">Collaborer</button>
         </div>
-
         <div class="projects-grid">
-            
-            <article class="project-card" data-category="realiser gerer conduire collaborer">
+            <article class="project-card"
+                     data-category="realiser gerer conduire collaborer">
                 <div class="project-sidebar-img">
-                    <img src="https://www.la-poze-travel.com/wp-content/uploads/2025/07/phare-mean-ruz-cote-darmor-min.jpg" alt="Logo PACT">
+                    <img src="https://www.la-poze-travel.com/wp-content/uploads/2025/07/phare-mean-ruz-cote-darmor-min.jpg"
+                         alt="Logo PACT">
                 </div>
-
                 <div class="project-info">
                     <h3>Création d'un site touristique pour les côtes-d'armor</h3>
-                    <p class="project-tech">
-                        <span>HTML</span><span>CSS</span><span>PHP</span><span>JavaScript</span><span>PostGreSQL</span><span>GitHub</span><span>Scrum</span>
-                    </p>
+                    <p class="project-tech"><span>HTML</span><span>CSS</span><span>PHP</span><span>JavaScript</span><span>PostGreSQL</span><span>GitHub</span><span>Scrum</span></p>
                     <p>Les compétences liées</p>
-                    <div class="project-tech">
-                        <span>Collaborer (Travailler dans une équipe)</span>
-                        <span>Conduire (Identifier les besoins)</span>
-                        <span>Gérer (Concevoir une base de données)</span>
-                        <span>Réaliser (Développer des applications informatiques)</span>
-                    </div>
+                    <div class="project-tech"><span>Collaborer (Travailler dans une équipe)</span><span>Conduire (Identifier les besoins)</span><span>Gérer (Concevoir une base de données)</span><span>Réaliser (Développer des applications informatiques)</span></div>
                 </div>
                 <div class="project-details">
                     <h3>Réalisé en 2ème année de B.U.T. Informatique</h3>
-                    <p>
-                        Dans le cadre de ce projet, nous avons conçu et développé PACT, un portail web dynamique dédié à la promotion touristique des Côtes-d’Armor. <br>
-                        L’objectif était de créer un écosystème complet permettant de mettre en relation professionnels du tourisme et visiteurs. <br>
-                        Voici les réalisations principales: 
-                        <br><br>
-                        <ul>
-                            <li>Interface Utilisateur: Conception d’une navigation intuitive avec affichage dynamique des offres culturelles sous forme de cartes interactives.</li>
-                            <li>Gestion Multi-profils: Développement d’une logique interne complexe gérant différents types de comptes (Visiteurs, Professionnels, Administrateurs) avec des droits d'accès et des tableaux de bord spécifiques.</li>
-                            <li>Back-end: Implémentation de la création, modification et gestion des annonces et des réservations.</li>
-                        </ul>
-                        <br>
-                        De plus, ce projet a été piloté selon la méthodologie AGILE (Scrum). Organisés en sprints de 15 jours, nous avons, en équipes de 6 à 8 personnes, assuré une livraison continue de fonctionnalités, garantissant ainsi le respect du cahier des charges et une grande réactivité face aux besoins du client.
-                    </p>
+                    <p><br>En 2ème année de B.U.T. Informatique, j'ai co-développé PACT, un portail web dynamique pour le tourisme dans les Côtes-d’Armor, au sein d'une équipe de 6 à 8 personnes.<br><br>Notre objectif était de bâtir un écosystème complet pour connecter professionnels du tourisme et visiteurs via une interface moderne et fonctionnelle.<br><br>En suivant la méthode Agile (Scrum), nous avons réalisé les missions suivantes :<br><ul><li>Nous avons conçu une navigation intuitive avec un affichage dynamique des offres par cartes interactives.</li><li>Nous avons développé la logique multi-comptes (Visiteur, Pro, Admin) et leurs tableaux de bord respectifs.</li><li>Nous avons implémenté les fonctionnalités back-end pour la gestion des annonces et des réservations.</li></ul><br>Résultat, nous avons livré une plateforme opérationnelle et fidèle au cahier des charges, tout en assurant une livraison continue à chaque sprint.</p>
                 </div>
             </article>
-
-            <article class="project-card" data-category="realiser collaborer conduire">
+            <article class="project-card"
+                     data-category="realiser collaborer conduire">
                 <div class="project-sidebar-img">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_x1D-v7aqFBr7u100rMjZw9qJ0PDAMHZUuw&s" alt="Image Stage">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_x1D-v7aqFBr7u100rMjZw9qJ0PDAMHZUuw&s"
+                         alt="Image Stage">
                 </div>
-
                 <div class="project-info">
                     <h3>Création d'une IHM pour une entreprise</h3>
-                    <p class="project-tech">
-                        <span>C#</span>
-                        <span>VisualStudio</span>
-                    </p>
+                    <p class="project-tech"><span>C#</span><span>VisualStudio</span></p>
                     <p>Les compétences liées</p>
-                    <div class="project-tech">
-                        <span>Réaliser (Développer des applications informatiques)</span>
-                        <span>Collaborer (Travailler dans une équipe)</span>
-                        <span>Conduire (Identifier les besoins)</span>
-                    </div>
+                    <div class="project-tech"><span>Réaliser (Développer des applications informatiques)</span><span>Collaborer (Travailler dans une équipe)</span><span>Conduire (Identifier les besoins)</span></div>
                 </div>
                 <div class="project-details">
                     <h3>Réalisé dans le cadre du stage de 2ème année de B.U.T. Informatique</h3>
-                    <p>
-                        Au cours de mon stage, j'ai été chargé de concevoir et de développer une Interface Homme-Machine (IHM) permettant le pilotage à distance d'équipements conçus par l'entreprise. <br>
-                        Cela a donc été pour moi l'occasion de réaliser beaucoup de choses, notamment: 
-                        <br><br>
-                        <ul>
-                            <li>L'analyse du besoin: Étude approfondie du cahier des charges pour traduire les exigences techniques des ingénieurs en fonctionnalités pour l'IHM.</li>
-                            <li>Le développement logiciel: Création complète de l'application à l'aide de Visual Studio en C#, et donc élaboration d'une interface ergonomique permettant la visualisation des données en temps réel et l'envoi de commandes aux appareils.</li>
-                        </ul>
-                        <br>
-
-                        J'y ai également développé mes soft-skills, en effet, j'ai pu collaborer avec des ingénieurs, qui n'étaient pas du domaine de l'informatique, pour comprendre les besoins et le fonctionnement du projet. 
-                    </p>
+                    <br>
+                    <p>Durant mon stage de 2ème année de B.U.T., j'ai intégré une entreprise pour concevoir une Interface Homme-Machine (IHM).<br><br>Ma mission consistait à créer de zéro une application capable de traduire des exigences techniques complexes en une interface de contrôle simple et efficace pour les utilisateurs.<br><br>Pour mener à bien ce projet:<ul><li>J'ai analysé les besoins des ingénieurs métiers pour transformer leurs contraintes techniques en fonctionnalités logicielles.</li><li>J'ai développé l'application sous C# (Visual Studio), incluant la visualisation de données en temps réel et le module d'envoi de commandes.</li><li>J'ai collaboré avec des équipes non-informaticiennes pour m'assurer que les besoins de l'IHM était satisfaits.</li></ul><br><br>Résultat, j'ai livré un logiciel robuste et ergonomique, facilitant le travail des ingénieurs et garantissant un pilotage fiable des appareils.</p>
                 </div>
             </article>
-
-                        <article class="project-card" data-category="realiser">
+            <article class="project-card"
+                     data-category="realiser">
                 <div class="project-sidebar-img">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRod61FtUhsVzS59ja-MmURXCKsL5dd6vIj2Q&s" alt="Image Morpion">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRod61FtUhsVzS59ja-MmURXCKsL5dd6vIj2Q&s"
+                         alt="Image Morpion">
                 </div>
-
                 <div class="project-info">
                     <h3>Création d'un morpion en python</h3>
-                    <p class="project-tech">
-                        <span>Python</span>
-                    </p>
+                    <p class="project-tech"><span>Python</span></p>
                     <p>Les compétences liées</p>
-                    <div class="project-tech">
-                        <span>Réaliser (Développer des applications informatiques)</span>
-                    </div>
+                    <div class="project-tech"><span>Réaliser (Développer des applications informatiques)</span></div>
                 </div>
                 <div class="project-details">
                     <h3>Projet personnel</h3>
-                    <p>
-                        Réalisé en autodidacte, ce projet visait à approfondir ma maîtrise du langage Python à travers la création d'une application de bureau interactive. <br>
-                        J'ai notamment réalisé: 
-                        <br><br>
-                        <ul>
-                            <li>Une interface graphique avec l'utilisation de la bibliothèque Tkinter pour concevoir une fenêtre de jeu dynamique et gérer les événements utilisateurs (clics, mises à jour visuelles).</li>
-                            <li>La logique algorithmique, avec l'implémentation du moteur de jeu (gestion des tours, vérification des conditions de victoire et gestion des matchs nuls).</li>
-                            <li>Et la programmation événementielle avec l'apprentissage des concepts de boucles d'événements et de rafraîchissement d'interface en temps réel.</li>
-                        </ul>
-                        <br>
-                        Au final, ce projet m'a permis de comprendre la séparation entre la logique métier (les règles du jeu) et la couche présentation (l'interface), une base fondamentale pour le développement d'applications plus complexes.
-                    </p>
+                    <p><br>En autodidacte, j'ai choisi de développer un jeu de Morpion interactif pour approfondir mes compétences en programmation Python.<br><br>Mon objectif était de construire une application de bureau, intégrant une interface graphique et une logique de jeu.<br><br><ul><li>J'ai conçu l'interface graphique avec Tkinter, en gérant les événements utilisateurs et les mises à jour visuelles.</li><li>J'ai implémenté le moteur algorithmique pour automatiser la gestion des tours et la vérification des conditions de victoire.</li><li>J'ai appliqué les principes de la programmation événementielle pour assurer un rafraîchissement fluide de l'interface en temps réel.</li></ul><br>Résultat, ce projet m'a permis de maîtriser davantage Python, fondamentale au vu de la popularité de ce langage de programmation.</p>
                 </div>
             </article>
-
-            <article class="project-card" data-category="collaborer realiser optimiser">
+            <article class="project-card"
+                     data-category="collaborer realiser optimiser">
                 <div class="project-sidebar-img">
-                    <img src="https://sudoku-puzzles.net/wp-content/puzzles/asterisk-sudoku/easy/1.png" alt="Image Sudoku">
+                    <img src="https://sudoku-puzzles.net/wp-content/puzzles/asterisk-sudoku/easy/1.png"
+                         alt="Image Sudoku">
                 </div>
-
                 <div class="project-info">
                     <h3>Création d'un sudoku en ligne de commande</h3>
-                    <p class="project-tech">
-                        <span>C</span>
-                    </p>
+                    <p class="project-tech"><span>C</span></p>
                     <p>Les compétences liées</p>
-                    <div class="project-tech">
-                        <span>Collaborer (Travailler dans une équipe)</span>
-                        <span>Réaliser (Développer des applications informatiques)</span>
-                        <span>Optimiser (Appréhender et construire des algorithmes)</span>
-                    </div>
+                    <div class="project-tech"><span>Collaborer (Travailler dans une équipe)</span><span>Réaliser (Développer des applications informatiques)</span><span>Optimiser (Appréhender et construire des algorithmes)</span></div>
                 </div>
                 <div class="project-details">
                     <h3>Réalisé en 1ère année de B.U.T. Informatique</h3>
-                    <p>Le but de ce projet était de coder entièrement une grille de Sudoku fonctionnelle en ligne de commande, en binôme, à l'aide du langage de programmation C. L'utilisateur pouvait saisir un chiffre puis une case sur la grille via une combinaison lettre/chiffre, et le programme vérifiait que tout était en règle. L'utilisateur pouvait alors jouer toute une partie de Sudoku. 
-                        Pour y parvenir, nous avons suivi de nombreuses étapes: 
-                        <br><br>
-                        <ol>
-                            <li>Maquettage</li>
-                            <li>Création de l'algorithme principal en pseudo-code</li>
-                            <li>Réalisation d'un cahier de tests</li>
-                            <li>Réalisation de la documentation</li>
-                            <li>Réalisation de l'algorithme principal</li>
-                            <li>Réalisation des tests</li>
-                        </ol>
+                    <p><br>Au cours de ma 1ère année de B.U.T., j'ai codé en binôme un jeu de Sudoku fonctionnant en ligne de commande en langage C.<br><br>Notre objectif était de développer un programme capable de gérer les saisies utilisateurs et de vérifier en temps réel la validité des coups selon les règles du Sudoku.<br><br><ul><li>Nous avons conçu le maquettage et l'algorithme principal en pseudo-code avant toute phase de codage.</li><li>Nous avons réalisé un cahier de tests et une documentation technique complète pour assurer la fiabilité du programme.</li><li>Nous avons implémenté la logique de vérification des grilles et le système de saisie par coordonnées.</li></ul><br>Résultat, nous avons livré une application stable et jouable, validée par une batterie de tests unitaires.</p>
                 </div>
             </article>
-
-            <article class="project-card" data-category="administrer">
+            <article class="project-card"
+                     data-category="administrer">
                 <div class="project-sidebar-img">
-                    <img src="https://uploads.teachablecdn.com/attachments/XJOlXZHcQvKHdkmu1yrs_docker-wide.png" alt="Image Docker">
+                    <img src="https://uploads.teachablecdn.com/attachments/XJOlXZHcQvKHdkmu1yrs_docker-wide.png"
+                         alt="Image Docker">
                 </div>
-
                 <div class="project-info">
                     <h3>Installation d'un poste de travail: Docker</h3>
-                    <p class="project-tech">
-                        <span>Docker</span>
-                    </p>
+                    <p class="project-tech"><span>Docker</span></p>
                     <p>Les compétences liées</p>
-                    <div class="project-tech">
-                        <span>Administrer (Installer et configurer un poste de travail)</span>
-                    </div>
+                    <div class="project-tech"><span>Administrer (Installer et configurer un poste de travail)</span></div>
                 </div>
                 <div class="project-details">
                     <h3>Réalisé en 1ère année de B.U.T. Informatique</h3>
-                    <p>
-                        Dans le cadre d’un projet d'initiation aux systèmes Linux, j'ai réalisé le déploiement et la configuration complète d'une solution de conteneurisation Docker.
-                        Ce projet m'a permis de comprendre l'utilisation d'une technologie de conteneurisation telle que Docker.
-                    </p>
+                    <p><br>Dans le cadre d'un projet d'initiation aux systèmes Linux, j'ai travaillé sur la mise en place d'un environnement de travail avec Docker.<br><br>Mon objectif était de réaliser le déploiement et la configuration complète de la solution de conteneurisation Docker pour isoler des services.<br><br>J'ai appréhendé les commandes d'administration pour piloter Docker.<br><br>Résultat, j'ai obtenu un poste de travail flexible.</p>
                 </div>
             </article>
-
-            <article class="project-card" data-category="realiser collaborer conduire gerer optimiser">
+            <article class="project-card"
+                     data-category="realiser collaborer conduire gerer optimiser">
                 <div class="project-sidebar-img">
-                    <img src="https://img.freepik.com/vecteurs-libre/cadre-notes-musique-espace-texte_1017-32857.jpg?semt=ais_hybrid&w=740&q=80" alt="Image Musique">
+                    <img src="https://img.freepik.com/vecteurs-libre/cadre-notes-musique-espace-texte_1017-32857.jpg?semt=ais_hybrid&w=740&q=80"
+                         alt="Image Musique">
                 </div>
-
                 <div class="project-info">
                     <h3>Création d'une plateforme de recommandation musicale</h3>
-                    <p class="project-tech">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>PHP</span>
-                        <span>JavaScript</span>
-                        <span>PostGreSQL</span>
-                        <span>GitHub</span>
-                        <span>TechniquesIA</span>
-                        <span>Python</span>
-                    </p>
+                    <p class="project-tech"><span>HTML</span><span>CSS</span><span>PHP</span><span>JavaScript</span><span>PostGreSQL</span><span>GitHub</span><span>TechniquesIA</span><span>Python</span></p>
                     <p>Les compétences liées</p>
-                    <div class="project-tech">
-                        <span>Réaliser (Développer des applications informatiques)</span>
-                        <span>Collaborer (Travailler dans une équipe)</span>
-                        <span>Conduire (Identifier les besoins)</span>
-                        <span>Gérer (Concevoir une base de données)</span>
-                        <span>Optimiser (Appréhender et construire des algorithmes)</span>
-                    </div>
+                    <div class="project-tech"><span>Réaliser (Développer des applications informatiques)</span><span>Collaborer (Travailler dans une équipe)</span><span>Conduire (Identifier les besoins)</span><span>Gérer (Concevoir une base de données)</span><span>Optimiser (Appréhender et construire des algorithmes)</span></div>
                 </div>
                 <div class="project-details">
                     <h3>En cours (3ème année de B.U.T. Informatique)</h3>
-                    <p>
-                        Au sein d'une équipe de 8 personnes, nous concevons une plateforme de recommandations musicales intégrant des algorithmes d'intelligence artificielle pour personnaliser l'expérience utilisateur.
-                        Nos réalisations: <br><br>
-                    </p>
-                    <ul>
-                        <li>Système de Recommandation: Implémentation de modèles d'IA pour suggérer des titres adaptés aux goûts de l'utilisateur.</li>
-                        <li>Architecture: Développement d'une interface web pour gérer les interactions utilisateurs.</li>
-                        <li>Traitement de données: Analyse et structuration des métadonnées musicales pour alimenter le moteur de recommandation.</li>
-                    </ul>
+                    <p><br>Au sein d'une équipe de 8 personnes, nous concevons une plateforme de recommandations musicales intégrant des algorithmes d'intelligence artificielle pour personnaliser l'expérience utilisateur.<br><br>En 3ème année de B.U.T., je co-développe au sein d'une équipe de 8 personnes une plateforme de streaming intégrant de l'intelligence artificielle.<br><br>Notre objectif est de proposer une expérience ultra-personnalisée en concevant un moteur de recommandation capable de suggérer des titres adaptés aux goûts uniques de chaque utilisateur.<br><br>Nous avons plusieurs missions pour mener à bien ce projet:<br><ul><li>Implémenter des modèles d'IA pour analyser les préférences et générer des suggestions pertinentes.</li><li>Développer l'interface web.</li><li>Structurer et analyser les métadonnées musicales pour alimenter efficacement les modèles.</li></ul><br>Résultat, ce projet, actuellement en cours, me permet de maîtriser le cycle complet d'une application.</p>
                 </div>
             </article>
         </div>
     </section>
-
     <footer id="contact">
-        <h2>Prêt à collaborer? Choisissez votre canal:</h2>
-        <div class="contact-info">
-            <a href="tel:+33783206696" class="contact-item">
-                <iconify-icon icon="lucide:phone" style="vertical-align: middle;"></iconify-icon>
-                <span>07 83 20 66 96</span>
-            </a>
-
-            <a href="mailto:enzocaz2004@gmail.com" class="contact-item">
-                <iconify-icon icon="lucide:mail" style="vertical-align: middle;"></iconify-icon>
-                <span>enzocaz2004@gmail.com</span>
-            </a>
-
-            <a href="https://fr.linkedin.com/in/enzo-caz-062922341" class="contact-item">
-                <iconify-icon icon="lucide:linkedin" style="vertical-align: middle;"></iconify-icon>                
-                <span>LinkedIn</span>
-            </a>
-        </div>
+        <section id="contact">
+            <div class="contact-container">
+                <div>
+                    <h2>Prêt à collaborer? Alors n'hésitez pas!</h2>
+                    <br>
+                    <form action="https://formspree.io/f/mreegoqv"
+                          method="POST"
+                          class="contact-form">
+                        <div class="form-group">
+                            <label for="full-name">Votre nom</label>
+                            <input type="text"
+                                   name="name"
+                                   id="full-name"
+                                   placeholder="D.Trump"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-address">Votre adresse amail</label>
+                            <input type="email"
+                                   name="_replyto"
+                                   id="email-address"
+                                   placeholder="votre@email.com"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Votre message</label>
+                            <textarea rows="5"
+                                      name="message"
+                                      id="message"
+                                      placeholder="Bonjour Enzo, j'aimerais vous rencontrer pour..."
+                                      required></textarea>
+                        </div>
+                        <input type="hidden"
+                               name="_subject"
+                               value="Nouveau message depuis le Portfolio !">
+                        <button type="submit"
+                                class="hero-btns">Envoyer le message</button>
+                    </form>
+                    <div>
+                        <a href="tel:+33783206696"
+                           class="contact-item">
+                            <iconify-icon icon="lucide:phone"
+                                          style="vertical-align: middle;"></iconify-icon>
+                            <span>07 83 20 66 96</span>
+                        </a>
+                        <a href="mailto:enzocaz2004@gmail.com"
+                           class="contact-item">
+                            <iconify-icon icon="lucide:mail"
+                                          style="vertical-align: middle;"></iconify-icon>
+                            <span>enzocaz2004@gmail.com</span>
+                        </a>
+                        <a href="https://fr.linkedin.com/in/enzo-caz-062922341"
+                           class="contact-item">
+                            <iconify-icon icon="lucide:linkedin"
+                                          style="vertical-align: middle;"></iconify-icon>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
         <p class="copyright">&copy; 2026 Enzo Caz</p>
     </footer>
-
 </body>
 </html>
